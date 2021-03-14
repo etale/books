@@ -42,6 +42,7 @@ const sort = (exp) => (
 )
 
 addEventListener('load', (event) => {
+  set(document.querySelector('title'), 'textContent', `books (${items.length})`)
   sort(byauthor)
 })
 </script><body></body></html>
