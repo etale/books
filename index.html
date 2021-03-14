@@ -38,7 +38,7 @@ const filter = (exp) => (
   ))
 )
 const sort = (exp) => (
-  set(document.querySelector('title'), 'textContent', `books (${items.length})`)
+  set(document.querySelector('title'), 'textContent', `books (${items.length})`),
   document.body.replaceChildren(...icons.sort(exp))
 )
 
