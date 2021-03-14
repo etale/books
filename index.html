@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head><title></title></head><script>
+const { set } = Reflect
+const { assign } = Object
+const genIcon = ({ asin, author, title, date }) => (
+  ((a, img) => (
+    set(a, 'href', `https://read.amazon.co.jp/manga/${asin}`),
+    set(a, 'title', `${author}\n${title}`),
+    set(img, 'src', `https://images-na.ssl-images-amazon.com/images/P/${asin}.09.MZZZZZZZ.jpg`),
+    a.appendChild(img),
+    assign(a.dataset, { asin, author, date, title }),
+    a
+  ))(document.createElement('a'), document.createElement('img'))
+)
+
+const byauthor = (a, b) => (
+  a.dataset.author.localeCompare(b.dataset.author) ||
+  a.dataset.title .localeCompare(b.dataset.title)
+)
+const old2new = (a, b) => a.dataset.date.localeCompare(b.dataset.date)
+const new2old = (a, b) => b.dataset.date.localeCompare(a.dataset.date)
+
+const items = JSON.parse(localStorage.items) || []
+const asins = new Set(items.map(({ asin }) => asin))
+const icons = items.map(genIcon)
+
+const store = (item) => {
+  asins.has(item.asin) || (
+    asins.add(item.asin),
+    items.push(item),
+    icons.push(genIcon(item))
+  )
+}
+
+const filter = (exp) => (
+  icons.forEach((icon) => (
+    set(icon.style, 'display', exp(icon) ? '' : 'none')
+  ))
+)
+const sort = (exp) => (
+  document.body.replaceChildren(...icons.sort(exp))
+)
+
+addEventListener('load', (event) => {
+  sort(byauthor)
+})
+</script><body></body></html>
