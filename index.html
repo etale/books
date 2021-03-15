@@ -20,7 +20,7 @@ const byauthor = (a, b) => (
 const old2new = (a, b) => a.dataset.date.localeCompare(b.dataset.date)
 const new2old = (a, b) => b.dataset.date.localeCompare(a.dataset.date)
 
-const items = JSON.parse(localStorage.items) || []
+const items = JSON.parse(localStorage.items || '[]')
 const asins = new Set(items.map(({ asin }) => asin))
 const icons = items.map(genIcon)
 
