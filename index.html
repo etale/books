@@ -17,8 +17,16 @@ const byauthor = (a, b) => (
   a.dataset.author.localeCompare(b.dataset.author) ||
   a.dataset.title .localeCompare(b.dataset.title)
 )
-const old2new = (a, b) => a.dataset.date.localeCompare(b.dataset.date)
-const new2old = (a, b) => b.dataset.date.localeCompare(a.dataset.date)
+const old2new = (a, b) => (
+  a.dataset.date.localeCompare(b.dataset.date) ||
+  a.dataset.author.localeCompare(b.dataset.author) ||
+  a.dataset.title .localeCompare(b.dataset.title)
+)
+const new2old = (a, b) => (
+  b.dataset.date.localeCompare(a.dataset.date) ||
+  a.dataset.author.localeCompare(b.dataset.author) ||
+  a.dataset.title .localeCompare(b.dataset.title)
+)
 
 const items = JSON.parse(localStorage.items || '[]')
 const asins = new Set(items.map(({ asin }) => asin))
