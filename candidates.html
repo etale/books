@@ -1,0 +1,6 @@
+((asins) => {
+    document.body.innerHTML = xs
+    .filter(a => !asins.has(a))
+    .map(a => 
+    `<a href="https://amazon.co.jp/dp/${a}" target="_blank"><img src="https://images-na.ssl-images-amazon.com/images/P/${a}.09.MZZZZZZZ.jpg"></img></a>`).join('\n')
+})(new Set(localStorage.asins.split(',')))
